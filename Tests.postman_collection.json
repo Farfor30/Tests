@@ -1,0 +1,1567 @@
+{
+  "info": {
+    "_postman_id": "ca1b3ab3-4c76-45bf-b772-947fdd2fabb8",
+    "name": "Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38964644",
+    "_collection_link": "https://go.postman.co/collection/38964644-ca1b3ab3-4c76-45bf-b772-947fdd2fabb8?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "/auth",
+      "item": [
+        {
+          "name": "Позитивные тесты",
+          "item": [
+            {
+              "name": "Успешная авторизация",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "if (pm.response.code === 200 && pm.response.json().token) {\r",
+                      "    pm.collectionVariables.set(\"valid_token\", pm.response.json().token);\r",
+                      "}\r",
+                      ""
+                    ],
+                    "type": "text/javascript",
+                    "packages": {},
+                    "requests": {}
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"{{valid_username}}\",\r\n  \"password\": \"{{valid_password}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Негативные тесты",
+          "item": [
+            {
+              "name": "ввод с пробелами",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"{{valid_username}}\",\r\n  \"password\": \" {{valid_password}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Пустой логин",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"\",\r\n  \"password\": \"{{valid_password}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Пустой пароль",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"{{valid_username}}\",\r\n  \"password\": \"\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Неверный логин",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"flsd'gl\",\r\n  \"password\": \"{{valid_password}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Неверный пароль",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"{{valid_username}}\",\r\n  \"password\": \"flgpkfdlg;d\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Отсутствует поле логин",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \r\n  \"password\": \"{{valid_password}}\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Отсутствует поле пароль",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"{{valid_username}}\"\r\n  \r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "JSON с синтаксической ошибкой",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"{{valid_username}}\",\r\n  \"password\": \"{{valid_password}}\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/auth",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "auth"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {},
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "/booking (POST/GET)",
+      "item": [
+        {
+          "name": "Post",
+          "item": [
+            {
+              "name": "Позитивный тест",
+              "item": [
+                {
+                  "name": "Бронирование с валидными значениями",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "if (pm.response.code === 200 && pm.response.json().bookingid) {\r",
+                          "    pm.collectionVariables.set(\"id\", pm.response.json().bookingid);\r",
+                          "}\r",
+                          ""
+                        ],
+                        "type": "text/javascript",
+                        "packages": {},
+                        "requests": {}
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Без депозита",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": false,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Негативные тесты",
+              "item": [
+                {
+                  "name": "Пустое Имя",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Отсутствует имя",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Пустая  фамилия",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Отрицательная цена",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": -100,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "checkin >  checkout",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-30\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Неверный формат даты",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"01/10/2026\",\r\n    \"checkout\": \"05/10/2026\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Слишком длинное имя",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"ИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИванИван\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n     \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "В место даты число",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": 20261001,\r\n    \"checkout\": 20261005\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "В место даты буквы",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"dfsdfsfds\",\r\n    \"checkout\": \"sdfsdfdsf\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Имя в формате числа",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": 213242134,\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n    \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Тело не JSON",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"Иван\",\r\n  \"lastname\": \"Иванович\",\r\n  \"totalprice\": 10000,\r\n  \"depositpaid\": true,\r\n  \"bookingdates\": {\r\n     \"checkin\": \"2026-10-01\",\r\n    \"checkout\": \"2026-10-05\"\r\n  }\r\n}\r\n"
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Бронирование с пустыми полями",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"firstname\": \"\",\r\n  \"lastname\": \"\",\r\n  \"totalprice\":\"\" ,\r\n  \"depositpaid\": \"\",\r\n  \"bookingdates\": {\r\n    \"checkin\": \"\",\r\n    \"checkout\": \"\"\r\n  }\r\n}\r\n",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Get",
+          "item": [
+            {
+              "name": "Позитивный тест",
+              "item": [
+                {
+                  "name": "Поиск по имени и фамилии",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking?firstname=Иван&lastname=Иванович",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ],
+                      "query": [
+                        {
+                          "key": "firstname",
+                          "value": "Иван"
+                        },
+                        {
+                          "key": "lastname",
+                          "value": "Иванович"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Поиск по имени",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking?firstname=Иван",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ],
+                      "query": [
+                        {
+                          "key": "firstname",
+                          "value": "Иван"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Поск по по одной дате",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/booking?checkin=2026-10-01",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ],
+                      "query": [
+                        {
+                          "key": "checkin",
+                          "value": "2026-10-01"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Поиск по датам заезда/выезда",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{base_url}}/booking?checkin=2026-10-01&checkout=2026-10-05",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ],
+                      "query": [
+                        {
+                          "key": "checkin",
+                          "value": "2026-10-01"
+                        },
+                        {
+                          "key": "checkout",
+                          "value": "2026-10-05"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Негативные тесты",
+              "item": [
+                {
+                  "name": "некорректный формат даты",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Authorization",
+                        "value": "{{valid_token}}",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking?checkin=fdgdfgdfg",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ],
+                      "query": [
+                        {
+                          "key": "checkin",
+                          "value": "fdgdfgdfg"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Длинный формат firstname",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/booking?firstname=Иванdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ],
+                      "query": [
+                        {
+                          "key": "firstname",
+                          "value": "Иванdddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Несуществующий параметр",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/booking?dfgfdgdf=fdgfdgfd.",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking"
+                      ],
+                      "query": [
+                        {
+                          "key": "dfgfdgdf",
+                          "value": "fdgfdgfd."
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/booking/:id",
+      "item": [
+        {
+          "name": "Get",
+          "item": [
+            {
+              "name": "Позитивный тест",
+              "item": [
+                {
+                  "name": "получение существующего ID",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/booking/{{id}}",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "{{id}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Негативные тесты",
+              "item": [
+                {
+                  "name": "Не существующий id",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/booking/999999999999999999999999999",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "999999999999999999999999999"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "id не числовой",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/booking/fgfdgdfgdfgd",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "fgfdgdfgdfgd"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "PUT /booking/:id",
+          "item": [
+            {
+              "name": "Полная замена бронирования",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Cookie",
+                    "value": "token={{valid_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstname\": \"Миша\",\r\n    \"lastname\": \"Сенников\",\r\n    \"totalprice\": 99999,\r\n    \"depositpaid\": false,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-10-03\",\r\n        \"checkout\": \"2026-10-07\"\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/booking/{{id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "booking",
+                    "{{id}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Частичная замена",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Cookie",
+                    "value": "token={{valid_token}}",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"firstname\": \"Олег\"\r\n\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/booking/{{id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "booking",
+                    "{{id}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "PATCH",
+          "item": [
+            {
+              "name": "Позитивные тесты",
+              "item": [
+                {
+                  "name": "Одно поле",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"firstname\": \"Олег\"\r\n\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking/{{id}}",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "{{id}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Несколько полей",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      },
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json",
+                        "type": "text",
+                        "disabled": true
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json",
+                        "type": "text",
+                        "disabled": true
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"firstname\": \"Андрей\",\r\n    \"lastname\": \"Булгаков\",\r\n    \"totalprice\": 43676\r\n  \r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking/{{id}}",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "{{id}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Нешативные тесты",
+              "item": [
+                {
+                  "name": "Неизвестное поле",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n   \r\n    \r\n    \"FGFGFGF\": \"fdsfsdfs\"\r\n    \r\n\r\n}"
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking/{{id}}",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "{{id}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Несуществующий id",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"firstname\": \"Андрей\",\r\n    \"lastname\": \"Булгаков\",\r\n    \"totalprice\": 436767,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2027-10-03\",\r\n        \"checkout\": \"2027-10-07\"\r\n    }\r\n}"
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking/9999999999",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "9999999999"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Тело JSON=текст",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "\r\nпривет",
+                      "options": {
+                        "raw": {
+                          "language": "text"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking/{{id}}",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "{{id}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Delete",
+          "item": [
+            {
+              "name": "Позитивный тест",
+              "item": [
+                {
+                  "name": "Удаление бронирования",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking/{{id}}",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "{{id}}"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Негативные тесты",
+              "item": [
+                {
+                  "name": "Удаление несуществующего ID",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/booking/9999",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "9999"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Удаление нечислового ID",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Cookie",
+                        "value": "token={{valid_token}}",
+                        "type": "text"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{base_url}}/booking/sdgsgsgd",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "booking",
+                        "sdgsgsgd"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "/ping",
+      "item": [
+        {
+          "name": "Позитивный тест",
+          "item": [
+            {
+              "name": "Проверка доступности",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/ping/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ping",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Негативные тесты",
+          "item": [
+            {
+              "name": "Метод Post вместо Get",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/ping/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ping",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "добавление неподдерживаемого query - параметра",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/ping?ping?test=1",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "ping"
+                  ],
+                  "query": [
+                    {
+                      "key": "ping?test",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://restful-booker.herokuapp.com"
+    },
+    {
+      "key": "valid_username",
+      "value": "admin"
+    },
+    {
+      "key": "valid_password",
+      "value": "password123"
+    },
+    {
+      "key": "valid_token",
+      "value": ""
+    },
+    {
+      "key": "id",
+      "value": ""
+    }
+  ]
+}
